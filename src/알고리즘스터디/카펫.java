@@ -1,6 +1,6 @@
 package 알고리즘스터디;
 
-public class level2 {
+public class 카펫 {
 
 	public static int[] solution(int brown, int yellow) {
         
