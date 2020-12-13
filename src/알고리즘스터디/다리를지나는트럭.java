@@ -20,12 +20,9 @@ public class 다리를지나는트럭 {
 		while(true) {
 			
 			// 3. 1초 경과후 다리위 트럭 상태 갱신
-//			System.out.print(time + ": ");
 			for(int[] st : curQ) {
-//				System.out.print("("+st[0] +" : "+ st[1]+")");
 				st[1]++;
 			}
-//			System.out.println();
 			// 4. 선두 차량이 다리를 벗어났는지 확인
 			if(!curQ.isEmpty()) {
 				int[] top = curQ.peek();
