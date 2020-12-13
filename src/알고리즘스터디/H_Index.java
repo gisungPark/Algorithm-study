@@ -6,30 +6,36 @@ public class H_Index {
 
 	public static int solution(int[] citations) {
 		
-		//1. 배열 정렬
+		//1. 배열 내림차순 정렬
 		Arrays.sort(citations);
-		int len = citations.length;
+		int[] rev = reverse(citations);
+		System.out.println(Arrays.toString(rev));
 		
-		// 출력
-		for(int i=len-1,j=1; i>=0; i--,j++) {
-			System.out.print(citations[i]+ " ");
-		}
-		System.out.println();
-		for(int i=len-1,j=1; i>=0; i--,j++) {
-			System.out.print(j+ " ");
-		}
-		System.out.println(); // end 출력
-		
-		int ans = 0;
-		int j=len-1;
-		for(int i=citations[len-1]; i>=0; i--) {
+		int ans = rev[0];
+		int idx = 0;
+		while(ans>=0) {
+			if(ans<=idx+1) break;
+			// 배열의 인덱스값 증가
+			if(rev[idx] == ans) idx++;
+			ans--;
 		}
 		
 		return ans;
 	}
 
+	// int 배열 순서를 뒤집는 함수
+	private static int[] reverse(int[] citations) {
+		int len = citations.length;
+		int[] rev = new int[len];
+
+		for(int i=0; i<len; i++) {
+			rev[i] = citations[len-i-1];
+		}
+		return rev;
+	}
+
 	public static void main(String[] args) {
-		int ans = solution(new int[] {6, 6, 6, 6, 6, 1});
+		int ans = solution(new int[] {8,10,10,15,17,22,24,28,32,42,47});
 		System.out.println(ans);
 	}
 }

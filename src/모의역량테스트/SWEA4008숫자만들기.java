@@ -1,91 +1,68 @@
 package 모의역량테스트;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class SWEA4008숫자만들기 {
-
-	static int max, min, N; // 최댓값,최솟값, 갯수
-	static int ops[], opsCnt[], numbers[]; //연산자순열, 연산자 갯수, 숫자배열
 	
-	public static void main(String[] args) throws NumberFormatException, IOException {
+	static int N, min, max;
+	static int[] op, nums, sel;
+	static boolean[] selected;
+	public static void main(String[] args) {
 		
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		int T = Integer.parseInt(in.readLine());
-		StringTokenizer st = null;
-		opsCnt = new int[4];
-		
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
 		for(int tc=1; tc<=T; tc++) {
-			N = Integer.parseInt(in.readLine());
-			numbers = new int[N];
-			ops = new int[N-1];
+			N = sc.nextInt();
+			op = new int[4];
+			nums = new int[N];
 			
-			st = new StringTokenizer(in.readLine(), " ");
+			// 1. 연산자 및 숫자 입력
 			for(int i=0; i<4; i++) {
-				opsCnt[i] = Integer.parseInt(st.nextToken());
-			}// 연산자 갯수 저장
-			
-			st = new StringTokenizer(in.readLine());
+				op[i] = sc.nextInt();
+			}
 			for(int i=0; i<N; i++) {
-				numbers[i] = Integer.parseInt(st.nextToken());
+				nums[i] = sc.nextInt();
 			}
-			
-			max = Integer.MIN_VALUE;
+
 			min = Integer.MAX_VALUE;
+			max = Integer.MIN_VALUE;
+			sel = new int[N-1];
+			perm(0);
 			
-			permutation(0);
-			
-			System.out.println("#" + tc + " " + (max-min));
-			
+			System.out.println("#"+tc+" " + (max-min));
 		}
-		
 	}
-
-	// +:0 -:1 *:2 /:3
-	private static void permutation(int cnt) {	//연산자의 순열 생성
-		
-		if(cnt == N-1) {	//연산자 순열 완성
-			calc();
-			return;
-		}
-		
-		// 모든 연산자를 다 시도해보자.
-		for(int i=0; i<4; i++) {
-			if(opsCnt[i] == 0) continue;
+	private static void perm(int k) {
+		if(k == sel.length) {
+			int sum = nums[0];
+			for(int i=0; i<N-1; i++) {
+				switch (sel[i]) {
+				case 0:
+					sum+=nums[i+1];
+					break;
+				case 1:
+					sum-=nums[i+1];
+					break;
+				case 2:
+					sum*=nums[i+1];
+					break;
+				case 3:
+					sum/=nums[i+1];
+					break;
+				}
+			}
+			min = Math.min(sum, min);
+			max = Math.max(sum, max);
 			
-			ops[cnt] = i;
-			opsCnt[i]--;
-			permutation(cnt+1);
-			opsCnt[i]++;
-		}
-		
-	}
-	private static void calc() {	//연산자의 순열 상태를 이용하여 수식계산
-		
-		int result = numbers[0];
-		for(int i=1; i<N; i++) {
-			int currNumber = numbers[i];
-			
-			switch (ops[i-1]) {
-			case 0:
-				result += currNumber;
-				break;
-			case 1:
-				result -= currNumber;
-				break;
-			case 2:
-				result *= currNumber;
-				break;
-			case 3:
-				result /= currNumber;
-				break;
-
+		}else {
+			for(int i=0; i<4; i++) {
+				if(op[i]<=0) continue;
+				sel[k] = i;
+				op[i]--;
+				perm(k+1);
+				op[i]++;
 			}
 		}
-		
-		max = Math.max(max, result);
-		min = Math.min(min, result);
 	}
+
 }

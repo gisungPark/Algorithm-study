@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-public class SWEA2383점심식사시간 {
+public class SWEA2383점심식사시간_by김태희 {
 	
 	static int T, N, min, cnt; //맵의 크기, 최소시간, 사람의 수
 	static boolean[] selected; // 부분집합 선택을 관리할 배열
