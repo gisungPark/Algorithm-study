@@ -10,26 +10,35 @@ public class 이중우선순위큐 {
 		
 		ArrayList<Integer> list = new ArrayList<>();
 		for(String operation : operations) {
+			
+			// 1. 연산 명령어 분석
 			StringTokenizer st = new StringTokenizer(operation," ");
 			String op = st.nextToken();
 			String n = st.nextToken();
-			int num = Integer.parseInt(n);
-			if(op.equals("I")) {	// 삽입 연산
+			int num = Integer.parseInt(n);	//문자열 형식의 숫자 데이터를 int값으로 변경
+			
+			// 2. 명령어에 따른 연산 수행
+			if(op.equals("I")) {			// 삽입 연산
 				list.add(num);
-			}else {	
+			}else {							// 삭제 연산
+				// 3. 리스트에 삭제될 데이터 없다면 continue
 				if(list.size()==0) continue;
-				// 삭제 연산 전 리스트 정렬
+				// 4. 삭제 연산 전 리스트 정렬
 				Collections.sort(list);
-				if(num == -1) { // 최솟값 삭제
+				// 5-1. 최솟값 삭제
+				if(num == -1) {	 
 					list.remove(0);
 				}else {
-					list.remove(list.size()-1); // 최댓값 삭제
+				// 5-2. 최댓값 삭제
+					list.remove(list.size()-1); 
 				}
 			}
 		}
 		
+		// 6. 결과값 
 		int[] answer = new int[] {0,0};
 		if(list.size() != 0) {
+			Collections.sort(list);
 			int max = list.get(list.size()-1);
 			int min = list.get(0);
 			answer = new int[] {max, min};
