@@ -6,7 +6,6 @@ public class SWEA4008숫자만들기 {
 	
 	static int N, min, max;
 	static int[] op, nums, sel;
-	static boolean[] selected;
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
