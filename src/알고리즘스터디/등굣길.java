@@ -1,5 +1,7 @@
 package 알고리즘스터디;
 
+// https://velog.io/@ajufresh/%EB%93%B1%EA%B5%A3%EA%B8%B8
+
 public class 등굣길 {
 
 	static int[][] dis;
@@ -39,9 +41,6 @@ public class 등굣길 {
 		}
 		System.out.println();
 	}
-
-
-
 
 
 	public static void main(String[] args) {

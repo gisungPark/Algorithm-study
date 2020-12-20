@@ -12,13 +12,14 @@ public class 구명보트 {
 
 		Arrays.sort(people);
 		
-		if(people[start] > 50) return (end-start+1);
+		// 0. 가장 작은 인원이 무게가 제한 무게의 반 이상을 차지한다면,
+		// 		2명이서 탑승가능한 경우가 존재하지 않는다.
+		if(people[start] > limit/2) return (end-start+1);
 		
 		
 		// 1. 혼자서만 탑승가능한 경우를 찾는다.
 		while(true) {
 			if(people[start]+people[end] <= limit/2) break;
-			
 			end--;
 			ans++;
 		}

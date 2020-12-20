@@ -28,13 +28,16 @@ public class 단어변환 {
 	private static void changeAlpa(String begin, int cnt, int len) {
 		if(cnt == len) return;
 		
+		// 3. 문자열 비교를 위해 String을 char[]로 변환 후 비교
 		char[] cur = begin.toCharArray();
 		if(compareStr(cur, res) == 0) {
 			ans = cnt;
 			return;
 		}else {
 			for(int i=0; i<set.length; i++) {
+				// 4. words 배열을 순회하며 이미 변환된 단어인지 체크
 				if(selected[i]) continue;
+				// 5. 두 단어사이에 다른 문자의 갯수 비교
 				if(compareStr(cur, set[i].toCharArray()) == 1) {
 					selected[i] = true;
 					changeAlpa(set[i], cnt+1, len);
@@ -44,6 +47,7 @@ public class 단어변환 {
 		}
 	}
 
+	// 두 char 배열을 비교하여 다른 문자가 몇개 있는지 반환하는 함수. 
 	private static int compareStr(char[] cur, char[] tar) {
 		int ans = 0;
 		for(int i=0; i<cur.length; i++) {
