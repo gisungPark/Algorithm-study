@@ -64,12 +64,13 @@ public class 자물쇠와열쇠 {
 
 	private static boolean check(int[][] key, int row, int col, int[][] holes) {
 
-		// 사이즈 비교
+		// 열쇠구멍 사이즈와 key 배열의 크기가 맞지 않으면 비교할 필요 없다.
 		int holeRow = holes.length;
 		int holeCol = holes[0].length;
 		if(key.length < row+holeRow
 				|| key[0].length < col + holeCol) return false; 
 		
+		// 열쇠구멍과 key 배열은 서로 반대 관계여야 한다. 
 		for(int i=row, l=0; i< row+holeRow; i++, l++) {
 			for(int j=col, m=0; j< col+holeCol; j++,m++) {
 				if(holes[l][m] == key[i][j]) return false;
