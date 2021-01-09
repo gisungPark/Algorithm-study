@@ -1,11 +1,9 @@
 package 알고리즘스터디;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class 단속카메라 {
-
 
 	public static int solution(int[][] routes) {
 		
@@ -21,9 +19,8 @@ public class 단속카메라 {
 		}
 		
 		int ans = 0;
-		int prev = -30000;
+		int prev = Integer.MIN_VALUE;
 		for(int[] r: q) {
-			System.out.println(Arrays.toString(r));
 			if(r[0] > prev) {
 				prev = r[1];
 				ans++;
