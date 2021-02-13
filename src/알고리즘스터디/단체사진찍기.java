@@ -1,67 +1,89 @@
 package 알고리즘스터디;
 
-import java.util.Arrays;
-
 public class 단체사진찍기 {
 
 	static int ans;
+	static String kakao = "ACFJMNRT";
 	static int[] sel;
-	static char[] person;
-	static boolean[] visited;
-	public static int solution(int N, String[] data) {
-		
-		String str = "ACFJMNRT";
-		person = str.toCharArray();
-		sel = new int[8];
-		visited = new boolean[8];
+	static boolean[] selected;
+	public static int solution(int n, String[] data) {
 		
 		ans = 0;
-		perm(0, data);
-		System.out.println(ans);
+		sel = new int[8];
+		selected = new boolean[8];
+		
+		Perm(0, n, data);
+		return ans;
+	}
+
+	private static void Perm(int cnt, int n, String[] data) {
+		if(cnt == 8) {
+			// 만들어진 순열로 조건검색
+			if(check(sel, n, data)) ans++;
+		}else {
+			for(int i=0; i<8; i++) {
+				if(selected[i]) continue;
+				selected[i] = true;
+				sel[cnt] = i;
+				Perm(cnt+1, n, data);
+				selected[i] = false;
+			}
+		}
+	}
+
+	private static boolean check(int[] arr, int n, String[] data) {
+
+		for(int i=0; i<n; i++) {
+			int a = convert(data[i].charAt(0));
+			int b = convert(data[i].charAt(2));
+			int distance = data[i].charAt(4)-'0';
+			char op = data[i].charAt(3); 
+			
+			int aIdx = 0, bIdx = 0;
+			for(int j=0; j<arr.length; j++) {
+				if(arr[j] == a) aIdx = j;
+				else if(arr[j] == b) bIdx = j;
+			}
+			
+			int dis = Math.abs(aIdx-bIdx);
+			if(op == '<') {
+				if(dis >= distance+1) return false;
+			}else if(op == '>') {
+				if(dis <= distance+1) return false;
+			}else if(op == '='){
+				if(dis != distance+1) return false;
+			}else {
+				return false;
+			}
+			
+		}
+		return true;
+	}
+
+	private static int convert(char ch) {
+		switch(ch) {
+		case 'A':
+			return 0;
+		case 'C':
+			return 1;
+		case 'F':
+			return 2;
+		case 'J':
+			return 3;
+		case 'M':
+			return 4;
+		case 'N':
+			return 5;
+		case 'R':
+			return 6;
+		case 'T':
+			return 7;
+		}
 		return -1;
 	}
 
-	private static void perm(int k, String[] data) {
-		if(k == sel.length) {
-			//System.out.println(Arrays.toString(sel));
-			boolean isOk = true;  
-			for(int i=0; i<data.length; i++) {
-				int s = 0, e = 0;
-				
-				for(int j=0; j<sel.length; j++) {
-					if(person[sel[j]] == data[i].charAt(0)) s = j;
-					else if(person[sel[j]] == data[i].charAt(2)) e = j;
-				}
-				int dis = Math.abs(s-e);
-				char op = data[i].charAt(3);
-				int com = data[i].charAt(4)-'0';
-				if(op == '<' && dis < com+1) {
-					
-				}else if(op == '>' && dis > com+1 ) {
-					
-				}else if(op == '=' && dis == com+1) {
-					
-				}else {
-					isOk = false;
-					break;
-				}
-			}
-			if(isOk) ans++;
-			
-		}else {
-			for(int i=0; i<sel.length; i++) {
-				if(visited[i]) continue;
-				sel[k] = i;
-				visited[i] = true;
-				perm(k+1, data);
-				visited[i] = false;
-			}
-		}
-		
-	}
-
 	public static void main(String[] args) {
-		solution(2, new String[] {"N~F=0", "R~T>2"});
+		int ans = solution(2, new String[] {"N~F=0", "R~T>2"});
+		System.out.println(ans);
 	}
-
 }
