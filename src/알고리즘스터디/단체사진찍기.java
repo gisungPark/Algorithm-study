@@ -31,6 +31,7 @@ public class 단체사진찍기 {
 		}
 	}
 
+	// 해당 순열이 조건을 만족하는지 확인
 	private static boolean check(int[] arr, int n, String[] data) {
 
 		for(int i=0; i<n; i++) {
@@ -60,6 +61,7 @@ public class 단체사진찍기 {
 		return true;
 	}
 
+	// 해당 문자별 숫자로 변환하는 컨버터
 	private static int convert(char ch) {
 		switch(ch) {
 		case 'A':
