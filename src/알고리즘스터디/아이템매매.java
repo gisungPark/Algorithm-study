@@ -29,6 +29,9 @@ public class 아이템매매 {
 			
 			int sellPrice = 0, buyPrice = 0, bit = 0;
 			
+			/*
+			 * 문자열이 정수인지 체크하는 방법 
+			 */
 			try {
 				sellPrice = Integer.parseInt(sel[i]);
 			} catch (Exception e) {
@@ -72,6 +75,6 @@ public class 아이템매매 {
 	public static void main(String[] args) {
 		int ans = solution(new String[] { "A", "B", "2000", "C", "D", "1000", "3000", "B", "500", "2500" },
 				new String[] { "1000", "A", "B", "1500", "C", "D", "B", "C", "B", "A" });
-		System.out.println(ans);
+		System.out.println("기댓값 : 3000 " + "\t결과값: " + ans);
 	}
 }
