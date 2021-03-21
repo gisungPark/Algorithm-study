@@ -15,6 +15,9 @@ public class 아이템매매 {
 		ans = -1;
 		DFS(complete, items, sel, buy, 0);
 
+
+		
+		
 		return ans;
 	}
 
@@ -28,6 +31,7 @@ public class 아이템매매 {
 			List<String> copyList = new ArrayList<>(items);
 			
 			int sellPrice = 0, buyPrice = 0, bit = 0;
+			
 			
 			/*
 			 * 문자열이 정수인지 체크하는 방법 

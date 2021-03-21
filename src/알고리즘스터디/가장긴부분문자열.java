@@ -21,7 +21,7 @@ public class 가장긴부분문자열 {
 
 		// 첫번째 숫자.
 		String sub = s.substring(sIdx, sIdx + len);
-//		System.out.println("첫번째 : " + sub);
+		System.out.println("첫번째 : " + sub);
 		int maxSize = 0, next = 0;
 		int prev = Integer.parseInt(sub);
 		int lastIdx = 0;
@@ -39,15 +39,15 @@ public class 가장긴부분문자열 {
 				lastIdx = len;
 			}
 			
-//			System.out.println("next : " + next);
+			System.out.println("next : " + next);
 			// 4-1. 다음수가 1증가 수열인 경우.
 			if (next == prev + 1) {
-//				System.out.println(prev + " -> " + next);
+				System.out.println(prev + " -> " + next);
 				prev = next;
 				maxSize = (i+lastIdx) - sIdx;
 			} else {
-//				System.out.println("최댓값:" + maxSize);
-//				System.out.println();
+				System.out.println("최댓값:" + maxSize);
+				System.out.println();
 				break;
 			}
 
@@ -68,15 +68,15 @@ public class 가장긴부분문자열 {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("기댓값 : 9 " + "\t결과값: " + solution("8234235236239240") );
+//		System.out.println("기댓값 : 9 " + "\t결과값: " + solution("8234235236239240") );
 		System.out.println("기댓값 : 5 " + "\t결과값: " + solution("123499100") );
-		System.out.println("기댓값 : 2 " + "\t결과값: " + solution("01020304") );
-		System.out.println("기댓값 : 9 " + "\t결과값: " + solution("999910000") );
-		System.out.println("기댓값 : 10 " + "\t결과값: " + solution("9999899999100000") );
-		System.out.println("기댓값 : 9 " + "\t결과값: " + solution("99999100000") );
-		System.out.println("기댓값 : 3 " + "\t결과값: " + solution("12356") );
-		System.out.println("기댓값 : 0 " + "\t결과값: " + solution("13579") );
-		System.out.println("기댓값 : 0 " + "\t결과값: " + solution("4") );
+//		System.out.println("기댓값 : 2 " + "\t결과값: " + solution("01020304") );
+//		System.out.println("기댓값 : 9 " + "\t결과값: " + solution("999910000") );
+//		System.out.println("기댓값 : 10 " + "\t결과값: " + solution("9999899999100000") );
+//		System.out.println("기댓값 : 9 " + "\t결과값: " + solution("99999100000") );
+//		System.out.println("기댓값 : 3 " + "\t결과값: " + solution("12356") );
+//		System.out.println("기댓값 : 0 " + "\t결과값: " + solution("13579") );
+//		System.out.println("기댓값 : 0 " + "\t결과값: " + solution("4") );
 
 		
 	}
