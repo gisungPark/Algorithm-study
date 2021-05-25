@@ -35,5 +35,5 @@ public class SpecialSort {
             System.out.print(i + " ");
         }
     }
-   
+
 }
