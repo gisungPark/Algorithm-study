@@ -1,8 +1,4 @@
-package 코테준비;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeSet;
+package 인프런;
 
 public class 능숙함체크 {
 

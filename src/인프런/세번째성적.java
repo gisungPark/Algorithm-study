@@ -1,4 +1,4 @@
-package 코테준비;
+package 인프런;
 
 import java.io.*;
 import java.util.*;

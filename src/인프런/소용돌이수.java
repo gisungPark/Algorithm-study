@@ -1,4 +1,4 @@
-package 코테준비;
+package 인프런;
 
 public class 소용돌이수 {
     public static int solution(int n) {

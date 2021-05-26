@@ -1,10 +1,8 @@
-package 코테준비;
+package 인프런;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class 탄화수소질량 {
 
