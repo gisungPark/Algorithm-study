@@ -1,4 +1,4 @@
-package 알고리즘스터디;
+package 자료구조;
 
 import java.util.Collection;
 import java.util.Iterator;
