@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -32,7 +34,7 @@ public class WikiFetcher {
 
 		// select the content text and pull out the paragraphs.
 		Element content = doc.getElementById("mw-content-text");
-		
+
 		// TODO: avoid selecting paragraphs from sidebars and boxouts
 		Elements paras = content.select("p");
 		return paras;
@@ -50,13 +52,11 @@ public class WikiFetcher {
 
 		// assemble the file name
 		String slash = File.separator;
-		String filename = "resources" + slash + realURL.getHost() + realURL.getPath();
-
-
-		filename = "resources/en.wikipedia.org/wiki/Java_(programming_language)+";
-		System.out.println(filename);
+		String filename = realURL.getFile();
+		String[] split = filename.split("/");
+		System.out.println(">> " + split[2]);
 		// read the file
-		InputStream stream = WikiFetcher.class.getClassLoader().getResourceAsStream(filename);
+		InputStream stream = getClass().getResourceAsStream("/" + split[2]);
 		Document doc = Jsoup.parse(stream, "UTF-8", filename);
 
 		// parse the contents of the file

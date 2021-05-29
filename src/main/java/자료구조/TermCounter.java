@@ -31,13 +31,16 @@ public class TermCounter {
 	}
 
 	/**
-	 * Returns the total of all counts.
+	 * Returns the total of all czounts.
 	 *
 	 * @return
 	 */
 	public int size() {
-		// TODO: FILL THIS IN!
-		return 0;
+		int total = 0;
+		for(Integer val : map.values()){
+			total += val;
+		}
+		return total;
 	}
 
 	/**
@@ -73,6 +76,7 @@ public class TermCounter {
 	 */
 	public void processText(String text) {
 		// replace punctuation with spaces, convert to lower case, and split on whitespace
+
 		String[] array = text.replaceAll("\\pP", " ").
 				              toLowerCase().
 				              split("\\s+");
