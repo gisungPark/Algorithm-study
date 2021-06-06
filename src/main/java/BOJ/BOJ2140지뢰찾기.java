@@ -1,85 +1,68 @@
 package BOJ;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class BOJ2140지뢰찾기 {
 
-    static int N, blanks;
     static int[] dx = {-1, 1, 0, 0, -1, -1, 1, 1};
     static int[] dy = {0, 0, -1, 1, -1, 1, -1, 1};
+    static int N, blanks, ans;
     static char[][] map;
-    static boolean[][] visited;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        N = sc.nextInt();
+        sc.nextLine();
 
-    public static void main(String[] args) throws IOException {
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        blanks = N*N - 4*(N-1);
-        if(blanks<=0) {
-            System.out.println();
-            return;
-        }
-
+        ans = 0;
+        blanks = (N-2)*(N-2);
         map = new char[N][];
-        visited = new boolean[N][N];
 
-        for (int i = 0; i < N; i++) {
-            map[i] = br.readLine().toCharArray();
-        }
-
-        po[][] iMap = init();
-        process();
-
-
-    }
-
-    private static void process() {
         for(int i=0; i<N; i++){
-            for(int j=0; j<N; j++){
-
-            }
+            String str = sc.nextLine();
+            map[i] = str.toCharArray();
         }
-    }
-
-    public static po[][] init(){
-        po[][] p = new po[N][N];
 
         for(int i=0; i<N; i++){
             for(int j=0; j<N; j++){
-                p[i][j] = check(i,j);
+                if(map[i][j] == '#' || map[i][j] == '*' || map[i][j] == ' ') continue;
+
+                if(map[i][j] == '0') fillTheBlank(i, j,' ');
+                else{
+                    check(i,j);
+                }
             }
         }
 
-        return p;
+        if(N<=2) System.out.println(0);
+        else System.out.println(blanks);
     }
 
-    private static po check(int r, int c) {
-        int val = map[r][c], blank = 0, boom = 0;
-
-        for(int i=0; i<8; i++){
-            int rr = r + dx[i];
-            int cc = c + dy[i];
-            if(rr< 0 || rr >=N || cc<0 || cc>=N) continue;
-            if(map[rr][cc] == '#') blank++;
-            else if(map[rr][cc] == '*') boom++;
+    private static void check(int i, int j) {
+        int boom = 0, blank = 0;
+        int val = map[i][j]-'0';
+        for(int d=0; d<8; d++){
+            int rr = i + dx[d];
+            int cc = j + dy[d];
+            if(rr < 0 || rr >= N || cc < 0 || cc >= N ) continue;
+            if(map[rr][cc] == '*') boom++;
+            else if(map[rr][cc] == '#') blank++;
         }
-        return new po(val,blank, boom);
-    }
 
-    public static class po{
-        int val;
-        int blank;
-        int boom;
-
-        public po(int val, int blank, int boom ){
-            this.val = val;
-            this.blank = blank;
-            this.boom = boom;
+        if(val == boom) fillTheBlank(i, j, ' ');
+        else if((val - boom) == blank){
+            fillTheBlank(i, j, '*');
         }
     }
 
+    private static void fillTheBlank(int r, int c, char mark) {
+        for(int d=0; d<8; d++){
+            int rr = r + dx[d];
+            int cc = c + dy[d];
 
+            if(rr < 0 || rr >= N || cc<0 || cc >=N
+                                || map[rr][cc] != '#') continue;
+            map[rr][cc] = mark;
+            if(mark != '*') blanks--;
+        }
+    }
 }
