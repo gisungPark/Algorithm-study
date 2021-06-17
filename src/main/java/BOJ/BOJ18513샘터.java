@@ -5,19 +5,18 @@ import java.util.*;
 
 public class BOJ18513샘터 {
 
-    static int N, K, LEN, HALF;
+    static int N, K, HALF;
     static List<Integer> water, home;
-    static boolean[] visited;
+    static int[] visited;
     public static void main(String[] args) throws IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
         K = Integer.parseInt(st.nextToken());
-        LEN = 200000002;
         HALF = 100000000;
 
-        visited = new boolean[LEN];
+        visited = new int[HALF * 2 + 2];
         water = new ArrayList<>();
         home = new ArrayList<>();
 
@@ -25,46 +24,59 @@ public class BOJ18513샘터 {
         st = new StringTokenizer(br.readLine());
         for(int i=0; i<N; i++){
             int pos = Integer.parseInt(st.nextToken());
-            visited[pos+HALF] = true;
+            visited[pos+HALF] = 1;
             water.add(pos);
-
         }
+
+        Collections.sort(water);
+
         int round = 1;
         loop: while(K > 0){
             for(int i=0; i<water.size(); i++){
                 int cur = water.get(i); // 샘물 좌표
                 int left = cur - round; // 왼쪽 좌표
                 int right = cur + round; // 오른쪽 좌표
-                if(!visited[HALF+left]){
-                    visited[HALF+left] = true;
+
+                if(left >= HALF * -1
+                            && visited[HALF+left] == 0){
+                    
+                    // 2. 샘물과의 최소값 구하기
+                    visited[HALF+left] = getMinDis(left, i);
                     home.add(left);
                     if(--K <= 0) break loop;
                 }
-                if(!visited[HALF+right]){
-                    visited[HALF+right] = true;
+                if(right <= HALF
+                            && visited[HALF+right] == 0){
+
+                    // 2. 샘물과의 최소값 구하기
+                    visited[HALF+right] = getMinDis(right, i);
                     home.add(right);
                     if(--K <= 0) break loop;
                 }
             }
             round++;
         }
-
-        Collections.sort(water);
-        Collections.sort(home);
-
-        // 3. 불행도 계산
         int sum = 0;
-        for(int i=0; i<home.size(); i++){
-            int min = dis(home.get(i), water.get(0));
-            for(int j=1; j<water.size(); j++){
-                int next = dis(home.get(i), water.get(j));
-                if(next > min) break;
-                else min = next;
-            }
-            sum += min;
+        for(int i=0; i < home.size(); i++){
+            sum += visited[HALF+home.get(i)];
         }
         System.out.println(sum);
+    }
 
+    /**
+     * pos 위치에서 샘물과의 최소값 계산
+     */
+    private static int getMinDis(int pos, int idx) {
+        int prev, cur, next;
+        prev = cur = next = water.get(idx);
+
+        if(idx - 1 >= 0 ) prev = water.get(idx-1);
+        if(idx + 1 < N) next = water.get(idx+1);
+        cur = water.get(idx);
+
+
+        return Math.min(dis(pos, prev),
+                Math.min(dis(pos, cur), dis(pos, next)));
     }
 
     public static int dis(int from, int to){
