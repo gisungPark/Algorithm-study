@@ -19,7 +19,7 @@ public class BOJ16954움직이는미로탈출 {
         map = new char[N][];
         walls = new boolean[N][N];
         Queue<po> user = new LinkedList<>();
-
+        // input
         for(int i=0; i<N; i++){
             map[i] = sc.nextLine().toCharArray();
             for(int j=0; j<N; j++){
@@ -36,11 +36,10 @@ public class BOJ16954움직이는미로탈출 {
         loop: while(!user.isEmpty()){
             round++;
             // 1. 사람 이동
-            if(userMove(user) || wallCnt == 0 || round > 8) {
+            if(moveUser(user) || wallCnt == 0 || round > 8) {
                 ans = 1;
                 break;
             }
-
             // 2. 벽 이동
             wallCnt = moveWall();
 
@@ -48,7 +47,7 @@ public class BOJ16954움직이는미로탈출 {
         System.out.println(ans);
     }
 
-    private static boolean userMove(Queue<po> user) {
+    private static boolean moveUser(Queue<po> user) {
         int len = user.size();
 
         for(int j=0; j<len; j++){
