@@ -13,11 +13,14 @@ public class BOJ143954연산 {
         from = sc.nextInt();
         to = sc.nextInt();
 
-        set = new HashSet<>();
-        ans = "";
-        BFS();
-        if(ans.equals("")) System.out.println(-1);
-        else System.out.println(ans);
+        if(from == to) System.out.println(0);
+        else {
+            ans = "";
+            set = new HashSet<>();
+            BFS();
+            if (ans.equals("")) System.out.println(-1);
+            else System.out.println(ans);
+        }
     }
 
     private static void BFS() {
@@ -29,7 +32,7 @@ public class BOJ143954연산 {
         while (!q.isEmpty()){
             Operation cur = q.poll();
 
-            for(int i=0; i<4; i++){
+            for (int i = 0; i < 4; i++) {
                 Operation next = calcNext(cur, i);
                 if(isVisit(next)) continue;
                 if(next.num == (long)to) {
@@ -43,8 +46,7 @@ public class BOJ143954연산 {
     }
 
     private static boolean isVisit(Operation next) {
-        if(set.contains(next.num)) return true;
-        return false;
+        return set.contains(next.num);
     }
 
     private static Operation calcNext(Operation cur, int flag) {
@@ -52,10 +54,7 @@ public class BOJ143954연산 {
         if (flag == 0) return new Operation(num*num, cur.op + "*");
         if (flag == 1) return new Operation(num+num, cur.op + "+");
         if (flag == 2) return new Operation(num-num, cur.op + "-");
-        else{
-            if(num == 0) return cur;
-            return new Operation(num/num, cur.op + "/");
-        }
+        return num == 0 ? cur : new Operation(1, cur.op + "/");
     }
 
     static class Operation{
