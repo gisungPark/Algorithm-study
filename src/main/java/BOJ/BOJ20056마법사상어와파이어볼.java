@@ -45,17 +45,9 @@ public class BOJ20056마법사상어와파이어볼 {
             for (int i = 0; i < len; i++) {
                 Fireball now = q.poll();
 
-                int xx = now.r;
-                int yy = now.c;
-                for(int j=0; j<now.s; j++) {
-                    xx = xx + dx[now.dir];
-                    yy = yy + dy[now.dir];
+                int xx = (now.r + dx[now.dir]*now.s + N)%N;
+                int yy = (now.c+dy[now.dir]*now.s + N)%N;
 
-                    if(xx == 0) xx = N;
-                    if(xx == N+1) xx = 1;
-                    if(yy == 0) yy = N;
-                    if(yy == N+1) yy = 1;
-                }
                 if (!info.containsKey(xx * 100 + yy)) {
                     List<Fireball> f = new ArrayList<>();
                     f.add(now);
